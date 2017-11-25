@@ -1,0 +1,29 @@
+version: '3'
+
+volumes: 
+  elasticsearch: {}
+  
+services: 
+
+  elasticsearch:
+     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.0
+     container_name: elasticsearch
+     restart: unless-stopped
+     ports: 
+        - "9200:9200"
+        - "9300:9300"
+     volumes:
+        -  elasticsearch:/usr/share/elasticsearch/data
+     networks:
+        - infra
+  kibana: 
+    image: docker.elastic.co/kibana/kibana-oss:6.0.0
+    container_name : kibana
+    restart: unless-stopped
+    ports:
+       - "5601:5601"
+    networks: 
+       - infra
+
+networks:
+     infra:
